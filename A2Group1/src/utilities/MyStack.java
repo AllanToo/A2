@@ -26,9 +26,9 @@ public class MyStack implements StackADT<Object>{
 
 	@Override
 	public Object pop() throws EmptyStackException {
-		stack.remove(top);
+		Object returnValue = stack.remove(top);
 		top--;
-		return null;
+		return returnValue;
 	}
 
 	@Override
@@ -58,14 +58,13 @@ public class MyStack implements StackADT<Object>{
 
 	@Override
 	public Object[] toArray(Object[] holder) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+
+		return stack.toArray(holder);
 	}
 
 	@Override
 	public boolean contains(Object toFind) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return false;
+		return stack.contains(toFind);
 	}
 
 	@Override
@@ -87,7 +86,7 @@ public class MyStack implements StackADT<Object>{
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
+
 		return stack.size();
 	}
 }
