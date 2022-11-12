@@ -3,7 +3,7 @@ package assign2;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
-public class MyStack implements StackADT<Object>{
+public class MyStack<E> implements StackADT<Object>, Iterable<Object>{
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class MyStack implements StackADT<Object>{
 	@Override
 	public Object[] toArray() {
 		// TODO Auto-generated method stub
-		return null;
+		return stack.toArray();
 	}
 
 	@Override
@@ -64,13 +64,25 @@ public class MyStack implements StackADT<Object>{
 
 	@Override
 	public boolean contains(Object toFind) throws NullPointerException {
-		return stack.contains(toFind);
+		for(int i = 0; i < stack.size(); i++) {
+			//go through the arraylist from 0 - size, if it finds the specified value, return true
+			if(stack.get(i) == toFind) {
+				return true;
+			}
+		}
+		return false;
 	}
+	
 
 	@Override
 	public int search(Object toFind) {
-		
-		return 0;
+
+		for(int i = 0; i < stack.size(); i++) {
+			if(stack.get(i) == toFind) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	@Override
@@ -80,8 +92,15 @@ public class MyStack implements StackADT<Object>{
 
 	@Override
 	public boolean equals(StackADT<Object> that) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		for (int i = top; i > 0; i--) {
+			//if this.peek() does not equal stack.remove()
+			if(stack.get(i) != that.peek()) {
+				return false;
+		}
+			that.pop();
+	}
+		return true;
 	}
 
 	@Override
