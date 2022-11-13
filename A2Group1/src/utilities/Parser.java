@@ -4,8 +4,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
+import utilities.MyDLL;
+
+
+/**
+ * 
+ * @author Paul Holck
+ * Takes in a file path for an xml file and checks for correct formatting 
+ * and outputs lines with formatting issues
+ * 
+ * @param String filename
+ */
 
 public class Parser {
 
@@ -22,6 +32,7 @@ public class Parser {
 		String line = "";
 		int lineLength;
 		String endTag = "";
+		String rootTag = "";
 		int i; // Counter
 		int index; // Index Holder
 		int lineCounter = 1; // Used to keep track of line numbers for errors in files
@@ -29,27 +40,29 @@ public class Parser {
 		boolean isValid = false;
 		boolean tagFinished = false;
 		boolean openTag = false;
-		ArrayList<String> expectedTags = new ArrayList<String>(); // ArrayList to ensure all opened tags are closed
-		ArrayList<Integer> lineTags = new ArrayList<Integer>(); // Parallel ArrayList to keep track of lines where tags are opened
-		ArrayList<String> errorTags = new ArrayList<String>(); // Keeps a list of all error tags
-		ArrayList<Integer> errorLines = new ArrayList<Integer>();
-		br.mark(10000);
+		boolean endReached = false;
+		//ArrayList<String> openedTags = new ArrayList<String>(); // ArrayList to ensure all opened tags are closed
+		MyDLL<String> openedTags = new MyDLL();
+		MyDLL<Integer> errorLines = new MyDLL();
+		br.mark(1000000); // reset for reader
+
 		// Reads all lines in the file
 		while(br.readLine() != null) {
 			i = 0;
 			endTag = "";
 			isValid = false;
+			endReached = false;
 			line = br.readLine();
 			lineLength = line.length();
-			
+			// System.out.println(line);
+
 			// Checks for a self-ending tag, no errors will be found here
 			if (line.contains("/>")) {
 				// No action needed
 			}
 
-			// Checks if the line is an endTag, created tag needs to be removed from the list
+			// Checks if the line has an endTag, can contain an opening and closing tag
 			else if (line.contains("</")) {
-
 				while (i < lineLength) {
 					tagCheck = Character.toString(line.charAt(i));
 
@@ -58,36 +71,62 @@ public class Parser {
 							// is a natural end tag
 						}
 						else {
+							// adds a slash to an opening tag to match its endTag in the list
 							endTag = "</";
 							openTag = true;
+							endReached = false;
 						}
 					}
+
 					if (tagCheck.equals("<")) {
 						endTag = "<";
 						isValid = true;
 					}
 
-					else if (tagCheck.equals(">")) {
+					else if (tagCheck.equals(">") && isValid == true) {
 						endTag += ">";
 						isValid = false;
 
+						// Catches adding an open tag
 						if (openTag == true) {
-							expectedTags.add(endTag);
 							openTag = false;
+							if (endTag == rootTag) {
+								if (!errorLines.contains(lineCounter)){
+									errorLines.add(lineCounter);
+								}
+							}
+							else {
+								openedTags.add(endTag);
+							}
 						}
+
+						// For removing the found endTag from the list of open tags
 						else {
 							// Retrieves the index of the last opened tag
-							index = expectedTags.size() -1;
+							index = openedTags.size() -1;
 
 							// if the current end tag doesnt match the last opened tag, error is raised
-							if (!endTag.equals(expectedTags.get(index))) {
-								expectedTags.remove(index);
-								errorTags.add(endTag);
-								errorLines.add(lineCounter);
+							if (!endTag.equals(openedTags.get(index))) {
+								openedTags.remove(index);
+								endReached = true;
+								if (!errorLines.contains(lineCounter)){
+									errorLines.add(lineCounter);
+								}
 							}
 
 							else {
-								expectedTags.remove(index);
+								endReached = true;
+								if (endTag == rootTag && openedTags.size() == 1) {
+									openedTags.remove(index);
+								}
+								else if (endTag == rootTag && openedTags.size() != 1) {
+									if (!errorLines.contains(lineCounter)){
+										errorLines.add(lineCounter);
+									}
+								}
+								else {
+									openedTags.remove(index);
+								}
 							}
 						}
 					}
@@ -101,12 +140,18 @@ public class Parser {
 							endTag += tagCheck;
 						}
 					}
+
+					else if (endReached == true && !tagCheck.equals(" ")) {
+						if (!errorLines.contains(lineCounter)){
+							errorLines.add(lineCounter);
+						}
+					}
 					i++;
 				}
 			}
 
 
-			// Handles beginning tags and adds them to the expectedTags list
+			// Handles beginning tags and adds them to the openedTags list
 			// Tested, handles tags in the correct format
 			else {
 				while (i < lineLength) {
@@ -118,9 +163,12 @@ public class Parser {
 						isValid = true;
 					}
 
-					else if (tagCheck.equals(">") && isValid == true) {
-						endTag += ">";
+					else if (tagCheck.equals(">") && endReached == false) {
+						if (isValid == true) {
+							endTag += ">";
+						}
 						isValid = false;
+						endReached = true;
 					}
 
 					else if (isValid == true) {
@@ -133,11 +181,25 @@ public class Parser {
 						}
 					}
 
-					//else if 
+					// Raises an error if there is more data after opening tag-only lines
+					else if (endReached == true) {
+						System.out.println("End clause reached");
+						if (tagCheck.equals(" ")) {
+						}
+						else {
+							if (!errorLines.contains(lineCounter)){
+								errorLines.add(lineCounter);
+							}
+						}
+					}
+
 					i++;
 				}
-				expectedTags.add(endTag);
-				lineTags.add(lineCounter);
+				openedTags.add(endTag);
+
+				if (lineCounter == 1) {
+					rootTag = endTag;
+				}
 
 			}
 			lineCounter++;
@@ -145,15 +207,18 @@ public class Parser {
 		i = 0;
 		lineCounter = 1;
 		System.out.println("File has been processed.");
-		
+
 		// If errors were logged, then a loop runs to display the lines where errors were found.
-		if (errorTags.size() > 0) {
-			System.out.println(errorTags.size() + " error(s) were found with the following lines: ");
+		if (errorLines.size() > 0) {
+			System.out.println("Errors were found with the following lines: ");
 			br.reset();
-			
+
 			while (br.readLine() != null) {
 				line = br.readLine();
-				if (errorLines.get(i) == lineCounter) {
+				if (i == errorLines.size()) {
+					break;
+				}
+				else if (errorLines.get(i) == lineCounter) {
 					System.out.println(line);
 					i++;
 				}
