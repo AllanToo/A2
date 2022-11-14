@@ -51,7 +51,7 @@ public class Queue <E> implements QueueADT, Iterator {
 		
 		if (isEmpty() == true)
 		{
-			throw new EmptyQueueException("Counter cannot be decremented.");
+			throw new EmptyQueueException("The Queue is empty");
 			
 		}
 		capacity--;
