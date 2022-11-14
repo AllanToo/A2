@@ -1,19 +1,13 @@
 package test;
 
+import utilities.MyArrayList;
 
-
+import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Iterator;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import assign2.MyArrayList;
 
 class MyArrayListTest<E> {
 	
@@ -24,14 +18,12 @@ class MyArrayListTest<E> {
 	}
 
 	@Test
-	@DisplayName("testing default size")
 	void testDefaultSize() {
 		MyArrayList<E> arrlist = new MyArrayList<>();
 		assertEquals(0, arrlist.size());
 		
 	}
 	@Test
-	@DisplayName("Does size() work?")
 	void testForSize() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
 		MyArrayList<Integer> zeroList = new MyArrayList<>();
@@ -59,7 +51,6 @@ class MyArrayListTest<E> {
 	}
 
 	@Test
-	@DisplayName("Adding to an array by index")
 	void testAddingSetIndexAndValue() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
 		arrlist.add(8, 2);
@@ -69,7 +60,6 @@ class MyArrayListTest<E> {
 	}
 	
 	@Test 
-	@DisplayName("Does contain() work for true/false?")
 	void testContains() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
 		arrlist.add(2);
