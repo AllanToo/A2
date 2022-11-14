@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 
 public class MyDLL<E> implements ListADT<E>, Iterator<E> {
                  MyDLLNode<E>  tail, current, head;
+                 MyDLLNode<E> root;
 	    private int size;
                  
                 public MyDLL( )
@@ -36,8 +37,9 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public void clear() {
-		   head = null;
-		   tail = null;
+	head = null;
+	tail = null;
+	size = 0;
 		
 	}
 
@@ -94,7 +96,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	
 	@Override
 	public int size() {
-		
+		 
 	return size;
 	}
 
@@ -309,40 +311,51 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public E[] toArray(E[] toHold) throws NullPointerException {
-		Object[] result = toHold;
-		if(size() > result.length) {
-			result = new Object [size()];
-			
-		}
-		
-		int i = 0;
-		for(Object e: result) {
-			result[i] = e;
-			i++;
-		}
-		if(result.length > 1) {
-			result[i] = null;
-			
-		}
-		return (E[]) result;
+		 if (toHold.length < size()) {
+		        E[] array = (E[]) new Object[size()];
+
+		        MyDLLNode temp = head;
+
+		        int currentIndex = 0;
+
+		        while (currentIndex < size) {
+		        	toHold[currentIndex] = (E) temp.element;
+		            currentIndex++;
+		            temp = temp.next;
+		        }
+		    }
+
+		    if (toHold.length > size()) {
+		    	toHold[size] = null;         
+		    }
+
+		    MyDLLNode temp = head;
+		    for (int i = 0; i < size; i++) {
+		    	toHold[i] = (E) temp.element;
+		        temp = temp.next;
+		    }
+
+		    return toHold;
 	}
 
 	@Override
 	public Object[] toArray() {
-		Object [] arr = new Object[size()];
+		Object[] array = new Object[size()];
 		int i = 0;
-		for(Object e: arr)
+		for(Object e: array)
 		{
-			arr[i] = e;
+			array[i] = e;
 			i++;
+			
 		}
-		return arr;
+		return array;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		
-		return null;
+		  head = this.root;
+		  tail = (MyDLLNode<E>) get(size() -1 );
+		return this;
 	}
 
 }
