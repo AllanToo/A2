@@ -5,15 +5,15 @@ import java.io.IOException;
 
 	public class Driver {
 		public static void main(String[] args) throws IOException 
-		{ 	
-			if (args[0] == null) {
-				System.out.println("Please enter a file name.");
-			}
-			else {
+		{
+			try {
 				String fileName = args[0];
 				String file = "res/" + fileName;
-				//String file = "res/sample2.xml";
 				Parser xml = new Parser(file);
+			}
+			
+			catch (IndexOutOfBoundsException e) {
+				System.out.println("Please enter a valid file name.");
 			}
 		}
 }
