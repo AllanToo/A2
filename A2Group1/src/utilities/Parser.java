@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import utilities.MyDLL;
 
 
@@ -183,7 +182,6 @@ public class Parser {
 
 					// Raises an error if there is more data after opening tag-only lines
 					else if (endReached == true) {
-						System.out.println("End clause reached");
 						if (tagCheck.equals(" ")) {
 						}
 						else {
