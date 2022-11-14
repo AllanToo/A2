@@ -46,13 +46,39 @@ public class MyDLLTests {
       @Test
       void addElementToTheEndList( )
       {
-    	  //MyDLL<Integer> dll = new MyDLL<Integer>();
+    	  MyDLL<Integer> dll = new MyDLL<Integer>();
+    	  dll.add(2);
+    	  dll.add(3);
+    	  dll.add(9);
+    	  dll.add(16);
+    	  
+    	  int last = dll.size();
+    	  
+    	  int index = dll.get(last);
+    	  
+    	  dll.add(last, 34);
+    	  
+    	  assertEquals(index, 34);
       }
       
       @Test
       void addAllElementsToTheList( )
       {
-    	  //MyDLL<Integer> dll = new MyDLL<Integer>();
+    	  MyDLL<String> dllOne = new MyDLL<String>();
+    	  dllOne.add("Hello, ");
+    	  dllOne.add("This");
+    	  dllOne.add("is");
+    	  dllOne.add("Sparta.");
+    	  
+    	  MyDLL<String> dllTwo = new MyDLL<String>();
+    	  dllTwo.add(" Nevermind, ");
+    	  dllTwo.add("This");
+    	  dllTwo.add("is");
+    	  dllTwo.add("Thebes.");
+    	  
+    	  dllOne.addAll(dllTwo);
+    	  
+    	  assertTrue(dllOne.contains("Thebes"));
       }
       
       
