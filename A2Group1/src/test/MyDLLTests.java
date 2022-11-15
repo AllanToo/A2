@@ -7,6 +7,10 @@ import org.junit.Test;
 import utilities.MyDLL;
 
 public class MyDLLTests {
+      /**
+	 * This method is to test if the size of the DLL will
+	 * equal to that of the amount added in said list.
+	 */
       @Test
       void returnSizeFromTheList( )
       {
@@ -21,6 +25,10 @@ public class MyDLLTests {
     	  assertEquals(0, zeroDll.size());
       }
       
+      /**
+     * This method is to test the removal of elements within
+     * the list.
+     */
       @Test
       void removeElementsFromList( )
       {
@@ -34,6 +42,10 @@ public class MyDLLTests {
     	  assertFalse(dll.contains("Goodbye"));
       }
       
+      /**
+     * This method is to insert an element at a specific
+     * index within the list.
+     */
       @Test
       void insertElementAtSpecificIndex( )
       {
@@ -43,6 +55,11 @@ public class MyDLLTests {
     	  
     	  assertEquals(dll.contains(index), 24);
       }
+      
+      /**
+     * This method is to add an element to the end of the
+     * list.
+     */
       @Test
       void addElementToTheEndList( )
       {
@@ -61,6 +78,10 @@ public class MyDLLTests {
     	  assertEquals(index, 34);
       }
       
+      /**
+     * This method is to test adding all the elements of a
+     * list into another list.
+     */
       @Test
       void addAllElementsToTheList( )
       {
@@ -81,7 +102,10 @@ public class MyDLLTests {
     	  assertTrue(dllOne.contains("Thebes"));
       }
       
-      
+      /**
+     * This method is to test getting a specific element using
+     * the index within the list.
+     */
       @Test
       void getElementInSpecifiedIndex( )
       {
