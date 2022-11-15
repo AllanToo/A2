@@ -99,7 +99,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public boolean add(E toAdd) throws NullPointerException {
 		@SuppressWarnings("rawtypes")
 		MyDLLNode newNode = new MyDLLNode(toAdd);
-		// if the list is empty, head and tail will point to the newNode
+		
 		if (head == null) {
 			head = tail = newNode;
 			head.previous = null;
@@ -211,7 +211,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
-		// remove(index);
+		
 		if (index < 0 || index > this.size()) {
 			throw new IndexOutOfBoundsException();
 		} else if (index == 0) {
