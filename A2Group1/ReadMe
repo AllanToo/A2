@@ -20,3 +20,13 @@ Author: Paul Holck
   
 Defects:
 Does not catch all xml formatting errors, but they are to be ignored for this assignment.
+
+
+Parser installation:
+Setup:
+- Make sure the sample2.xml file is in downloads directory 
+Run the jar file
+- Open command prompt
+- type " cd downloads" 
+- Use the following command " java -jar Parser.jar sample2.xml"
+- Output should be displayed properly.
