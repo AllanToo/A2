@@ -5,16 +5,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-
 import utilities.MyStack;
 
-class MyStackTest {
 
+
+
+
+class MyStackTest {
+	/**
+	 * testing constructor
+	 */
 	@Test
 	void testMyStack() {
 		MyStack<?> stack = new MyStack<Object>();
 	}
-
+	/**
+	 * testing to see if push() works
+	 */
 	@Test
 	void testPush() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -23,7 +30,10 @@ class MyStackTest {
 		
 		assertEquals(32, stack.peek());
 	}
-
+	
+	/**
+	 * testing to see if pop() method works
+	 */
 	@Test
 	void testPop() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -33,14 +43,19 @@ class MyStackTest {
 		stack.pop();
 		assertEquals("world", stack.peek());
 	}
-
+	/**
+	 * testing to see if peek() method works
+	 */
 	@Test
 	void testPeek() {
 		MyStack<?> stack = new MyStack<Object>();
 		stack.push("apple pie");
 		assertEquals("apple pie", stack.peek());
 	}
-
+	/**
+	 * testing to see if clear() method works
+	 * we're using size() method to see if clear() method works.
+	 */
 	@Test
 	void testClear() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -49,7 +64,9 @@ class MyStackTest {
 		stack.clear();
 		assertEquals(0, stack.size());
 	}
-
+	/**
+	 * testing the method when the stack is/is not empty
+	 */
 	@Test
 	void testIsEmpty() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -60,7 +77,9 @@ class MyStackTest {
 		
 		
 	}
-
+	/**
+	 * testing toArray() method to see if it can return an array
+	 */
 	@Test
 	void testToArray() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -73,12 +92,9 @@ class MyStackTest {
 		assertArrayEquals(array,a);
 		
 	}
-
-	@Test
-	void testToArrayObjectArray() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * testing contains() method for both true/false values
+	 */
 	@Test
 	void testContains() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -88,7 +104,9 @@ class MyStackTest {
 		stack.push(65);
 		assertEquals(true, stack.contains(77));
 	}
-
+	/**
+	 * testing the search() method 
+	 */
 	@Test
 	void testSearch() {
 		MyStack<?> stack = new MyStack<Object>();
@@ -107,7 +125,9 @@ class MyStackTest {
 		MyStack<?> stack = new MyStack<Object>();
 		stack.iterator();
 	}
-
+	/**
+	 * testing the equals() method. it compares each value from both arrays and it returns true if two stacks compared are equal.
+	 */
 	@Test
 	void testEqualsStackADTOfObject() {
 		MyStack<Integer> stack = new MyStack<Integer>();
@@ -126,7 +146,9 @@ class MyStackTest {
 		assertEquals(false, stack.equals(stackFalse));
 	
 	}
-
+	/**
+	 * test for size
+	 */
 	@Test
 	void testSize() {
 		MyStack<?> stack = new MyStack<Object>();
