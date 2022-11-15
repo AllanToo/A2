@@ -1,4 +1,4 @@
-package driver;
+package Driver;
 
 import utilities.*;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.io.IOException;
 		{
 			try {
 				String fileName = args[0];
-				String file = "res/" + fileName;
-				Parser xml = new Parser(file);
+	
+				Parser xml = new Parser(fileName);
 			}
 			
 			catch (IndexOutOfBoundsException e) {
