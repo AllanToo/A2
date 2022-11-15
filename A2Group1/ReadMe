@@ -8,6 +8,9 @@ Done everything but next() methods in stack/arraylist
 Author: Allan To 
 Implementation: MyDLL, MyDLLNode, MyQueue
 
+Author: Xyrille Tugade
+Implemented: MyDLLTests, QueueTest
+
 
 Part 2 - XML Parser
 Author: Paul Holck
