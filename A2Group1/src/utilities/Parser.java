@@ -1,6 +1,3 @@
-package utilities;
-
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,8 +22,8 @@ public class Parser {
 	public void xmlParser(String file) throws IOException {
 
 
-		final String FILENAME = "res/sample2.xml";
-		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
+		//final String FILENAME = "res/sample2.xml";
+		BufferedReader br = new BufferedReader(new FileReader(file));
 
 		String line = "";
 		int lineLength;
@@ -225,4 +222,3 @@ public class Parser {
 		}
 	}
 }
-
