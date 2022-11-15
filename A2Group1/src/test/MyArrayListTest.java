@@ -4,7 +4,7 @@ package test;
 
 import org.junit.Test;
 
-import assign2.MyArrayList;
+import utilities.MyArrayList;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
