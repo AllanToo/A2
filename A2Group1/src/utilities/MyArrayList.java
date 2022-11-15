@@ -1,7 +1,4 @@
 package assign2;
-
-import java.util.Iterator;
-
 public class MyArrayList<E> implements ListADT<E>, Iterable<E>{
 
 	private static final long serialVersionUID = 1L;
