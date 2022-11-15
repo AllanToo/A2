@@ -1,27 +1,36 @@
 package test;
 
-import utilities.MyArrayList;
+
 
 import org.junit.Test;
+
+import assign2.MyArrayList;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 
 
 class MyArrayListTest<E> {
 	
-	
+	/**
+	 * Test the constructor 
+	 */
 	@Test
 	void testMyArrayList() {
 		MyArrayList<E> arrlist = new MyArrayList<>();
 	}
-
+	/**
+	 * test default size when there are no elements in the arraylist
+	 */
 	@Test
 	void testDefaultSize() {
 		MyArrayList<E> arrlist = new MyArrayList<>();
 		assertEquals(0, arrlist.size());
 		
+	/**
+	 * Test size() method when there are elements inside the Array
+	 */
 	}
 	@Test
 	void testForSize() {
@@ -34,31 +43,37 @@ class MyArrayListTest<E> {
 		assertEquals(3, arrlist.size());
 		assertEquals(0, zeroList.size());
 	}
-
+	/**
+	 * testing the get() method
+	 */
 	@Test
 	void testGet() {
 		
-		MyArrayList<Integer> arrlist = new MyArrayList<>();
+		
 		MyArrayList<String> stringList = new MyArrayList<>();
-		arrlist.add(2);
-		arrlist.add(10);
+		
 		stringList.add("cookie");
 		stringList.add("bread");
 		stringList.add("zombies");
 		
-		assertEquals(2, arrlist.get(0));
+		
 		assertEquals("bread", stringList.get(1));
 	}
 
+	/**
+	 * testing add(int index, E toAdd)
+	 */
 	@Test
 	void testAddingSetIndexAndValue() {
-		MyArrayList<Integer> arrlist = new MyArrayList<>();
-		arrlist.add(8, 2);
-		arrlist.add(5,10);
+		MyArrayList<String> arrlist = new MyArrayList<>();
+		arrlist.add(8, "two");
+		arrlist.add(5,"ten");
 		
-		assertEquals(10, arrlist.get(5));
+		assertEquals("ten", arrlist.get(5));
 	}
-	
+	/**
+	 * testing the contains() method
+	 */
 	@Test 
 	void testContains() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
@@ -71,17 +86,21 @@ class MyArrayListTest<E> {
 		assertEquals(true, arrlist.contains(42));
 		assertEquals(false, arrlist.contains(269));
 	}
-	
+	/**
+	 * testing hasNext() method from MyIterator nested class. 
+	 */
 	@Test 
 	void testDoesHasNextWork() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
-		Iterator<Integer> hasnext = arrlist.iterator();
 		
-		assertEquals(false, hasnext.hasNext());
+		
+		assertEquals(false, arrlist.iterator().hasNext());
 		
 	}
 	
-	
+	/**
+	 * testing the clear() method, it should return 0 for the size since its removing all elements.
+	 */
 	@Test 
 	void testClearList() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
@@ -96,7 +115,10 @@ class MyArrayListTest<E> {
 		assertEquals(0, arrlist.size());
 		
 	}
-	
+	/**
+	 * testing remove(index) method that removes elements by searching for the specified index.
+	 * testing the size to see if it changed after the deletion.
+	 */
 	@Test
 	void testRemoveByIndex() {
 		
@@ -114,6 +136,9 @@ class MyArrayListTest<E> {
 		assertEquals(8, arrlist.size());
 		
 	}
+	/**
+	 * testing the remove(value) method that removes elements by searching for the specified value.
+	 */
 	@Test
 	void testRemoveByValue() {
 		MyArrayList<String> arrlist = new MyArrayList<>();
@@ -130,6 +155,9 @@ class MyArrayListTest<E> {
 		
 		
 	}
+	/**Testing the remove() method to see if it shifts elements to the left
+	 * after deletion.
+	 */
 	@Test 
 	void testRemoveShiftElements() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
@@ -140,9 +168,11 @@ class MyArrayListTest<E> {
 		
 		arrlist.remove(2);
 		assertEquals(3, arrlist.size());
-		assertEquals(7, arrlist.get(2));
+		assertEquals(Integer.valueOf(7), arrlist.get(2));
 	}
-	
+	/**
+	 * testing the addAll() method to see if it can add values from the second array to teh first one.
+	 */
 	@Test 
 	void testAddAll() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
@@ -159,7 +189,9 @@ class MyArrayListTest<E> {
 		arrlist.addAll(addToList);
 		assertEquals(20, arrlist.size());
 	}
-	
+	/**
+	 * testing if the arraylist that has values and an empty arraylist if it's empty or not
+	 */
 	@Test
 	void testIsEmpty() {
 		
@@ -171,6 +203,9 @@ class MyArrayListTest<E> {
 		assertEquals(false, anotherArr.isEmpty());
 	}
 	
+	/**
+	 * testing a method that can replace exsisting index with new values
+	 */
 	@Test 
 	void testReplaceValueWithSet() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
@@ -181,9 +216,11 @@ class MyArrayListTest<E> {
 			arrlist.add(random);
 		}
 		arrlist.set(5, 68);
-		assertEquals(68, arrlist.get(5));
+		assertEquals(Integer.valueOf(68), arrlist.get(5));
 	}
-	
+	/**
+	 * testing if the arraylist can return as a normal array
+	 */
 	@Test 
 	void testToArray() {
 		MyArrayList<Integer> arrlist = new MyArrayList<>();
